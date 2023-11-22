@@ -1,7 +1,18 @@
 
 {
     "log": {
-        "loglevel": "warning"
+        "loglevel": "error"
+    },
+        "routing": {
+        "rules": [
+            {
+                "type": "field",
+                "ip": [
+                    "geoip:private"
+                ],
+                "outboundTag": "direct"
+            }
+        ]
     },
     "inbounds": [
         {
@@ -20,16 +31,17 @@
                         "port": {{server_port}},
                         "users": [
                             {
-                                "id": "uuid", 
+                                "id": "{{uuid}}", 
                                 "encryption": "none",
-                                "flow": "xtls-rprx-vision"
+                                
+                                "flow": {% if type=='tcp' %} "xtls-rprx-vision"{% else %} "" {% endif %}
                             }
                         ]
                     }
                 ]
             },
             "streamSettings": {
-                "network": "tcp",
+                "network": "{{type}}",
                 "security": "reality",
                 "realitySettings": {
                     "fingerprint": "chrome",
@@ -37,6 +49,14 @@
                     "publicKey": "{{public_key}}", 
                     "shortId": "{{short_id}}" 
                 }
+                {% if type=='grpc' %}
+                ,"grpcSettings": {
+                    "serviceName": "{{serviceName}}", // 与服务端一致
+                    "multiMode": {% if mode=='gun' %} false {%else%} true {%endif%},
+                    "idle_timeout": 60,
+                    "health_check_timeout": 20
+                }
+                {%endif%}
             },
             "tag": "proxy"
         },

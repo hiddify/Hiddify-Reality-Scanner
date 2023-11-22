@@ -1,4 +1,7 @@
 import traceback
+import urllib
+import time
+import socket
 from functools import partial
 
 import multiprocessing
@@ -16,10 +19,7 @@ import requests
 import zipfile
 import shutil
 from jinja2 import Environment, PackageLoader, select_autoescape
-env = Environment(
-    loader=PackageLoader("hiddify_reality_scanner"),
-    autoescape=select_autoescape()
-)
+
 
 def get_download_url():
     system = platform.system()
@@ -77,33 +77,71 @@ def get_domains(retry=3):
     
     return get_domains(retry-1)    
 
-def main():  # pragma: no cover
-   import argparse
+def parse_reality(url):
+    if not url.startswith("vless://"):
+        raise ValueError("only vless reality is accepted")
+    # Parse the URL
+    parsed_url = urllib.parse.urlparse(url)
+
+    # Extract the server_name and server_port from the netloc
+    server_name = parsed_url.hostname
+    server_port=parsed_url.port
+
+    # Extract other components from the query and fragment
+    query_dict = urllib.parse.parse_qs(parsed_url.query)
+    short_id = query_dict.get('sid', [''])[0]
+    public_key = query_dict.get('pbk', [''])[0]
+    uuid = parsed_url.username
+
+    # Create a dictionary with the extracted components
+    res= {
+        'server_address': server_name,
+        'server_port': int(server_port),
+        'short_id': short_id,
+        'public_key': public_key,
+        'uuid': uuid,
+        'origsni':query_dict.get('sni', [''])[0],
+        'type':query_dict.get('type', ['tcp'])[0],
+        'serviceName':query_dict.get('serviceName', [''])[0],
+        'mode':query_dict.get('gun', [''])[0],
+    }
+    if res['type']=='http':
+        res['type']='h2'
+    return res
 
 def main():
     # Create an ArgumentParser object
     parser = argparse.ArgumentParser(description="Your CLI Description")
 
     # Add the command-line arguments
-    parser.add_argument("--server_address", required=True, help="Server address")
-    parser.add_argument("--server_port", required=True, type=int, help="Server port")
-    parser.add_argument("--uuid", required=True, help="UUID")
-    parser.add_argument("--public_key", required=True, help="Public key")
-    parser.add_argument("--short_id", required=True, help="Short ID")
+    parser.add_argument("reality_link", help="Vless Reality link")
+    parser.add_argument("--jobs",required=False,default=4, type=int,help="Number of concurrent requests (default=4)")
+    # parser.add_argument("--server_address", required=False, help="Server address")
+    # parser.add_argument("--server_port", required=False, type=int, help="Server port")
+    # parser.add_argument("--uuid", required=False, help="UUID")
+    # parser.add_argument("--public_key", required=False, help="Public key")
+    # parser.add_argument("--short_id", required=False, help="Short ID")
     parser.add_argument("--sni", required=False, help="Domains (comma-separated) or path to file")
 
     # Parse the command-line arguments
     args = parser.parse_args()
 
-    # Access the values of the arguments
-    data=dict(
-    server_address = args.server_address,
-    server_port = args.server_port,
-    uuid = args.uuid,
-    public_key = args.public_key,
-    short_id = args.short_id,
     
-    )
+    data={}
+    if args.reality_link:
+        data=parse_reality(args.reality_link)
+
+    # if args.server_address:
+    #     data['server_address'] = args.server_address
+    # if args.server_port:
+    #     data['server_port'] = int(args.server_port)
+    # if args.uuid:
+    #     data['uuid'] = args.uuid
+    # if args.public_key:
+    #     data['public_key'] = args.public_key
+    # if args.short_id:
+    #     data['short_id'] = args.short_id
+    
     domains = args.sni.split(',') if args.sni else []  
     if len(domains)==0:
         domains=get_domains()
@@ -120,8 +158,30 @@ def main():
     if not os.path.exists(f"bin/{bin}"):
         download_and_unzip()
     
-    run_in_parallel(data,domains,1)
+    
+    
+    # asyncio.run(test_domain(data,domains[0]))
+    # asyncio.run(test_domain_async(data,data['origsni']))
+    results=run_in_parallel(data,[data['origsni'],*domains],args.jobs)
+    print("Finished=============== Sorting results============")
+    def custom_sort_key1(item):
+        if item['ping'] is None:
+            return 100000000
+        return item['ping']
+    def custom_sort_key2(item):
+        if item['ping'] is None:
+            return -1000000000
+        return -item['ping']
 
+
+    results = sorted(results, key=custom_sort_key2)
+    print("\n".join([f"{d['sni']}\t\t:{d['ping']}" for d in results]))
+    results = sorted(results, key=custom_sort_key1,)
+    with open('results.txt','w') as f:
+        f.write("\n".join([f"{d['sni']}\t\t:{d['ping']}" for d in results]))
+
+    with open('results.json','w') as f:
+        json.dump(results,f)
 
 
 def run_in_parallel(data,domains,num_cpu_cores=4):    
@@ -136,24 +196,41 @@ def run_in_parallel(data,domains,num_cpu_cores=4):
         partial_task = partial(test_domain, data)
         
         # Use the pool to run the tasks in parallel with variable parameters
-        results = pool.map(partial_task, domains)
+        results = pool.map(partial_task, domains[0:10])
+    return results
     
+def test_domain(data, domain):
+     
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+    result = loop.run_until_complete(test_domain_async(data, domain))
+    return result
 
-async def test_domain(data,d):
+async def test_domain_async(data,d):
+    
     try:
         port=find_free_port()
-        template = env.get_template('xray.json')
+        env = Environment(
+            loader=PackageLoader("hiddify_reality_scanner"),
+            autoescape=select_autoescape()
+        )
+        template = env.get_template('xray.json.j2')
 
-        jsondata= template.render(*data,sni=d,port=port)
-        
+        jsondata= template.render(**data,sni=d,port=port)
+        # print(jsondata)
         from subprocess import Popen, PIPE
-        p = Popen(bin_path(),cwd="bin", stdin=PIPE)
-        p.communicate(input=jsondata)    
-
+        
+        # p = Popen(f'./bin/{bin_path()}',cwd="bin/", stdin=PIPE)
+        p = Popen(os.path.abspath(f'./bin/{bin_path()}'),cwd="bin", stdin=PIPE,stdout=PIPE, stderr=PIPE)
+        # p.communicate(input=jsondata.encode('utf-8'))    
+        p.stdin.write(jsondata.encode('utf-8'))
+        p.stdin.close()
+        
         await asyncio.sleep(1)
         
         ping_time=await ping("http://cp.cloudflare.com/",port)
         print(f"{d}\t\t:{ping_time}")
+        
         p.kill()
         return {'ping':ping_time,'sni':d}
     except Exception as e:
@@ -180,19 +257,24 @@ def find_free_port():
             _, port = s.getsockname()
             
             return port
+            # return 9999
     except Exception as e:
         print(f"Error finding a free port: {e}")
-        return No
+        return -1
 
 async def ping(url,port):
-    async with httpx.AsyncClient() as client:
+    async with httpx.AsyncClient(proxies=f"socks5://127.0.0.1:{port}") as client:
         try:
+            
             start_time = time.time()
-            response = await client.get(url,proxies=f"socks5://127.0.0.1:{port}")
+
+            
+            response = await client.get(url, timeout=10.0)
             end_time = time.time()
             response.raise_for_status()  # Raise an exception if the request was not successful (e.g., 404, 500)
+            
             ping_time = end_time - start_time  # Calculate the ping time
-            return response.text, ping_time
+            return int(ping_time*1000)
         except httpx.HTTPError as e:
-            print(f"HTTP error occurred: {e}")
-            return None, None
+            # print(f"HTTP error occurred: {e}")
+            return None
