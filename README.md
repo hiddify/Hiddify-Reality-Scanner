@@ -10,17 +10,21 @@ You need to install our custom xray core in the server using the following comma
 #remove old xray
 bash -c "$(curl -L https://github.com/XTLS/Xray-install/raw/main/install-release.sh)" @ remove
 
+systemctl stop hiddify-xray
+
 #install hiddify custom xray
 bash -c "$(curl -L https://github.com/hiddify/Xray-core-custom/raw/main/install-release.sh)" @ install
 ```
 
 now you should create a config with empty nameserver in your panel or add the following config 
 ```
-curl -o server_config.json https://https://github.com/hiddify/Hiddify_Reality_Scanner/raw/main/server_config.json
+curl -o server_config.json https://raw.githubusercontent.com/hiddify/Hiddify_Reality_Scanner/main/server_config.json
 
 SERVER_IP=$(curl ip.sb)
 echo "vless://hiddify@$SERVER_IP:11443/?fp=chrome&security=reality&pbk=Z84J2IelR9ch3k8VtlVhhs5ycBUlXA7wHBWcBrjqnAw&sid=6ba85179e30d4fc2&sni=www.google.com&type=tcp&flow=xtls-rprx-vision&encryption=none#Hiddify"
+```
 
+```
 xray run -c server_config.json
 ```
 this will create a temporary xray server for you 
