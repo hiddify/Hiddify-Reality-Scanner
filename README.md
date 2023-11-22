@@ -37,7 +37,7 @@ vless://hiddify@SERVER_IP:11443/?fp=chrome&security=reality&pbk=Z84J2IelR9ch3k8V
 ## Install it from PyPI
 
 ```bash
-pip install hiddify_reality_scanner
+pip install -U hiddify_reality_scanner
 ```
 
 ## Usage
