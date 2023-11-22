@@ -43,7 +43,6 @@ setup(
         "console_scripts": ["hiddify_reality_scanner = hiddify_reality_scanner.__main__:main"]
     },
     extras_require={"test": read_requirements("requirements-test.txt")},
-    package_data={
-          'hiddify_reality_scanner': 'templates/*',
-      })
+    include_package_data=True,
+
 )
