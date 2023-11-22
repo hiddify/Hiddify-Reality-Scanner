@@ -3,6 +3,7 @@ import urllib
 import time
 import socket
 from functools import partial
+from httpx_socks import AsyncProxyTransport
 
 import multiprocessing
 import argparse
@@ -165,11 +166,11 @@ def main():
     results=run_in_parallel(data,[data['origsni'],*domains],args.jobs)
     print("Finished=============== Sorting results============")
     def custom_sort_key1(item):
-        if item['ping'] is None:
+        if not item or not item['ping']:
             return 100000000
         return item['ping']
     def custom_sort_key2(item):
-        if item['ping'] is None:
+        if not item or not item['ping']:
             return -1000000000
         return -item['ping']
 
@@ -228,7 +229,7 @@ async def test_domain_async(data,d):
         
         await asyncio.sleep(1)
         
-        ping_time=await ping("http://cp.cloudflare.com/",port)
+        ping_time=await ping("http://cp.cloudflare.com/",port,d)
         print(f"{d}\t\t:{ping_time}")
         
         p.kill()
@@ -238,7 +239,7 @@ async def test_domain_async(data,d):
         
         # Print the stack trace
         traceback.print_exc()
-
+    return {'ping':None,'sni':d}
 
 
 
@@ -262,8 +263,9 @@ def find_free_port():
         print(f"Error finding a free port: {e}")
         return -1
 
-async def ping(url,port):
-    async with httpx.AsyncClient(proxies=f"socks5://127.0.0.1:{port}") as client:
+async def ping(url,port,domain):
+    transport = AsyncProxyTransport.from_url(f"socks5://127.0.0.1:{port}")
+    async with httpx.AsyncClient(transport=transport) as client:
         try:
             
             start_time = time.time()
@@ -277,4 +279,7 @@ async def ping(url,port):
             return int(ping_time*1000)
         except httpx.HTTPError as e:
             # print(f"HTTP error occurred: {e}")
+            return None
+        except Exception as e:
+            print(f'{domain} {e}')
             return None
