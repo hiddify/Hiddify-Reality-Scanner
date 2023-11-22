@@ -52,3 +52,8 @@ hiddify_reality_scanner --jobs 10 --sni yahoo.com,google.com vless_link
 ```bash
 hiddify_reality_scanner --jobs 10 --sni path_to_domain_file vless_link
 ```
+
+
+## results
+
+The results will be stored in results.txt and results.json
