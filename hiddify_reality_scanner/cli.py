@@ -116,7 +116,7 @@ def main():
 
     # Add the command-line arguments
     parser.add_argument("reality_link", help="Vless Reality link")
-    parser.add_argument("--jobs",required=False,default=4, type=int,help="Number of concurrent requests (default=4)")
+    parser.add_argument("--jobs",required=False,default=5, type=int,help="Number of concurrent requests (default=4)")
     # parser.add_argument("--server_address", required=False, help="Server address")
     # parser.add_argument("--server_port", required=False, type=int, help="Server port")
     # parser.add_argument("--uuid", required=False, help="UUID")
@@ -197,7 +197,7 @@ def run_in_parallel(data,domains,num_cpu_cores=4):
         partial_task = partial(test_domain, data)
         
         # Use the pool to run the tasks in parallel with variable parameters
-        results = pool.map(partial_task, domains[0:10])
+        results = pool.map(partial_task, domains)
     return results
     
 def test_domain(data, domain):

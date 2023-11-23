@@ -1,3 +1,7 @@
+www.google.com
+www.speedtest.net
+www.cloudflare.com
+cp.cloudflare.com
 www.iransocialforum.org
 www.irdiplomacy.ir
 www.khabaronline.ir
