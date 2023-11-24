@@ -4,7 +4,7 @@
 
 
 
-[**🇺🇸 English**](https://github.com/hiddify/Hiddify_Reality_Scanner/blob/main/README.md)
+[**🇺🇸 English**](README.md)
 </div>
 <br>
 <div align=center markdown="1">
