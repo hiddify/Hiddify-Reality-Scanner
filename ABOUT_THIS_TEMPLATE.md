@@ -40,7 +40,7 @@ Lets take a look at the structure of this template:
 ├── README.md                # The main readme for the project
 ├── setup.py                 # The setup.py file for installing and packaging the project
 ├── requirements.txt         # An empty file to hold the requirements for the project
-├── requirements-test.txt    # List of requirements for testing and devlopment
+├── requirements-test.txt    # List of requirements for testing and development
 ├── setup.py                 # The setup.py file for installing and packaging the project
 └── tests                    # Unit tests for the project (add mote tests files here)
     ├── conftest.py          # Configuration, hooks and fixtures for pytest
@@ -80,7 +80,7 @@ Except those tools that are up to the developer choice (like ipython, ipdb etc).
 ### Why the template doesn't have a `pyproject.toml` file ?
 
 It is possible to run `pip install https://github.com/name/repo/tarball/main` and
-have pip to download the package direcly from Git repo.
+have pip to download the package directly from Git repo.
 
 For that to work you need to have a `setup.py` file, and `pyproject.toml` is not
 supported for that kind of installation.
@@ -98,7 +98,7 @@ to use this template doesn't require to install extra tooling such as cookiecutt
 
 Just click on [Use this template](https://github.com/rochacbruno/python-project-template/generate) and you are good to go.
 
-The substituions are done using github actions and a simple sed script.
+The substitutions are done using github actions and a simple sed script.
 
 ### Why `VERSION` is kept in a static plain text file?
 
@@ -146,7 +146,7 @@ However I figured out that pre-commit adds extra dependency and it an entry barr
 for new contributors.
 
 Having the linting, checks and formatting as simple commands on the [Makefile](Makefile)
-makes it easier to undestand and change.
+makes it easier to understand and change.
 
 Once the project is bigger and complex, having pre-commit as a dependency can be a good idea.
 
