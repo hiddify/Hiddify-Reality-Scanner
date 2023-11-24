@@ -1,3 +1,5 @@
+import random
+
 import traceback
 import urllib
 import time
@@ -178,6 +180,8 @@ def main():
             with open(domains[0], "r") as file:
                 domains = file.readlines()
     domains = [d.strip() for d in domains]
+    random.shuffle(domains)
+
     # Now you can use these values in your code
     print(json.dumps(data, indent=4))
 
@@ -226,6 +230,10 @@ def run_in_parallel(data, domains, num_cpu_cores=4):
 
             for x in result_en:
                 results.append(x)
+        except KeyboardInterrupt:
+            print("Intrupting... ")
+            pool.terminate()
+            pool.join()
         except Exception as e:
             print(f"An exception occurred: {e}")
 
