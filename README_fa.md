@@ -113,6 +113,6 @@ hiddify_reality_scanner --jobs 10 --sni path_to_the_list vless_link
   * `--sni path_to_the_list` مسیر مربوط به لیست SNI مورد نظر را مشخص می‌کند.
 
 ## 📊 نتایج
-خروجی اسکنر در فایل‌های `results.txt` و `results.json`روی کلاینت شما ذخیره می‌گردد. شما می‌توانید از این SNIها برای ایجاد دامنه‌های ریالیتی در سرور خود استفاده نمایید. [نحوه ثبت دامنه ریالیتی در هیدیفای‌منیجر])(https://github.com/hiddify/Hiddify-Manager/wiki/%D8%A2%D9%85%D9%88%D8%B2%D8%B4-%D8%A7%D8%B3%D8%AA%D9%81%D8%A7%D8%AF%D9%87-%D8%A7%D8%B2-Reality-%D8%AF%D8%B1-%D9%87%DB%8C%D8%AF%DB%8C%D9%81%D8%A7%DB%8C)
+خروجی اسکنر در فایل‌های `results.txt` و `results.json`روی کلاینت شما ذخیره می‌گردد. شما می‌توانید از این SNIها برای ایجاد دامنه‌های ریالیتی در سرور خود استفاده نمایید. [نحوه ثبت دامنه ریالیتی در هیدیفای‌منیجر](https://github.com/hiddify/Hiddify-Manager/wiki/%D8%A2%D9%85%D9%88%D8%B2%D8%B4-%D8%A7%D8%B3%D8%AA%D9%81%D8%A7%D8%AF%D9%87-%D8%A7%D8%B2-Reality-%D8%AF%D8%B1-%D9%87%DB%8C%D8%AF%DB%8C%D9%81%D8%A7%DB%8C)
 
 
