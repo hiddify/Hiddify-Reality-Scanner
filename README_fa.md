@@ -1,6 +1,6 @@
 <base target="_blank">
 
-<div dir="ltr" align="right">
+<div dir="ltr" >
 
 
 
