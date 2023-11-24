@@ -217,14 +217,19 @@ def run_in_parallel(data, domains, num_cpu_cores=4):
     # Create a multiprocessing pool with the desired number of processes
     with multiprocessing.Pool(processes=num_cpu_cores) as pool:
         # Define the fixed parameter that remains the same for all tasks
-
-        # Use partial to create a new function with the fixed parameter set
         partial_task = partial(test_domain, data)
 
-        # Use the pool to run the tasks in parallel with variable parameters
-        results = pool.map(partial_task, domains)
-    return results
+        results = []  # Initialize an empty list to store results
 
+        try:
+            result_en = pool.imap(partial_task, domains)
+
+            for x in result_en:
+                results.append(x)
+        except Exception as e:
+            print(f"An exception occurred: {e}")
+
+    return results
 
 def test_domain(data, domain):
     loop = asyncio.new_event_loop()
