@@ -1,7 +1,7 @@
 
 # Hiddify Reality Scanner
 
-This is a TLS scanner that finds the best Reality SNI for you
+This is a TLS scanner that finds the best Reality SNI for you based on a list of SNIs.
 
 ## ⚙️ Prerequisites
 
