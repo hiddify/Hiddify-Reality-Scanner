@@ -15,16 +15,16 @@
 </div>
 
 # اسکنر ریالیتی هیدیفای
+این یک اسکنر TLS است که برای شما بهترین SNIهای ریالیتی را بر اساس لیستی از SNIها پیدا می‌کند.
 
-This is a TLS scanner that finds the best Reality SNI for you based on a list of SNIs.
-
-## ⚙️ Installation
-The installation of this scanner has 2 parts. The first part is a server-side application and the 2nd part is client-side.
+## ⚙️ نصب
+نصب این اسکنر دارای دو بخش است. بخش نخست یک اپلیکیشن سمت سرور است که باید روی سرور شما نصب شود و بخش دوم نیز یک اسکریپت سمت کلاینت است که باید روی کامپیوتر شما نصب گردد.
 
 
-#### 🛠️ Server-side Installation
-
-* First you need to install our custom xray core in the server using the following command:
+#### 🛠️ نصب سمت سرور
+* ابتدا نیاز است شما هسته Xray کاستوم شده ما را روی سرور خود با استفاده از دستور زیر نصب کنید:
+<div dir=ltr>
+ 
 ```
 #remove old xray
 bash -c "$(curl -L https://github.com/XTLS/Xray-install/raw/main/install-release.sh)" @ remove
@@ -34,55 +34,83 @@ systemctl stop hiddify-xray
 #install hiddify custom xray
 bash -c "$(curl -L https://github.com/hiddify/Xray-core-custom/raw/main/install-release.sh)" @ install
 ```
+</div>
 
-* Now you should create a config with empty nameserver in your panel or add the following config:
+* حالا باید یک فایل کانفیگ بت SNI خالی را روی پنل خود ایجاد کنید یا از کانفیگ زیر استفاده نمایید:
+<div dir=ltr>
+ 
 ```
 curl -o server_config.json https://raw.githubusercontent.com/hiddify/Hiddify_Reality_Scanner/main/server_config.json
 
 SERVER_IP=$(curl ip.sb)
 echo "vless://hiddify@$SERVER_IP:11443/?fp=chrome&security=reality&pbk=Z84J2IelR9ch3k8VtlVhhs5ycBUlXA7wHBWcBrjqnAw&sid=6ba85179e30d4fc2&sni=www.google.com&type=tcp&flow=xtls-rprx-vision&encryption=none#Hiddify"
 ```
-* Then you need to run the config via Xray like the command below. This will create a temporary Xray server for you :
+</div>
+
+* سپس می‌بایست کانفیگ را با Xray مثل کامند زیر اجرا نمایید. این کار یک سرور Xray موقت برای تست ایجاد می‌کند:
+
+<div dir=ltr>
+ 
 ```
 xray run -c server_config.json
 ```
-* You can use your Reality config like the the following link:
+</div>
+* می‌توانید کانفیگ ریالیتی را به شکل زیر استفاده نمایید.
 
+<div dir=ltr>
+ 
 ```
 vless://hiddify@SERVER_IP:11443/?fp=chrome&security=reality&pbk=Z84J2IelR9ch3k8VtlVhhs5ycBUlXA7wHBWcBrjqnAw&sid=6ba85179e30d4fc2&sni=www.yahoo.com&type=tcp&flow=xtls-rprx-vision&encryption=none#Hiddify
 ```
+</div>
 
-#### 🛠️ Clinet-side Installation
-For client-side, you just need to use Pypi and run the following command:
+#### 🛠️ نصب سمت کلاینت
+برای سمت کلاینت کافیه از Pypi استفاده نمایید و کامند زیر را ارا نمایید:
+<div dir=ltr>
+ 
 ```bash
 pip install -U hiddify_reality_scanner
 ```
+</div>
 
 <br>
 
-## 🚀 Basic Usage
-In order to run the scanner, use one of the following commands on your client:
+## 🚀 استفاده پایه
+جهت اجرای این اسکنر، یکی از دستورات زیر را روی کلاینت خود اجرا نمایید:
+<div dir=ltr>
+ 
 ```bash
 python -m hiddify_reality_scanner vless_link
 #or
 hiddify_reality_scanner vless_link
 ```
-## 🚀 Advanced Usage
-* If you want to consider more items when scanning, use the following command on your client:
+</div>
+
+## 🚀 استفاده پیشرفته
+* اگر بخواهید پارامترهای بیشتری را هنگام اسکن در نظر بگیرید، می‌بایست از دستور زیر روی کلاینت خود استفاده نمایید:
+<div dir=ltr>
+
 ```bash
 hiddify_reality_scanner --jobs 10 --sni yahoo.com,google.com vless_link
 ```
-* Here:
-  * `--jobs` defines the number of concurrent scans
-  * `--sni` defines the desired SNIs for scanning
+</div>
+
+* در اینجا:
+  * `--jobs` تعداد اسکن همزمان را تعیین می‌کند.
+  * `--sni` SNIهای مورد نظر را برای اسکن مشخص می‌کند.
  
-* If you want to add a list of SNIs, use the following command
-```bash
+* اگر بخواهید لیستی از SNIها را به اسکنر بدهید، می‌بایست از دستور زیر استفاده نمایید:
+
+<div dir=ltr>
+ 
+ ```bash
 hiddify_reality_scanner --jobs 10 --sni path_to_the_list vless_link
 ```
-* Here:
-  * `--jobs` defines the number of concurrent scans
-  * `--sni path_to_the_list` desines the path for the list of SNIs
+</div>
 
-## 📊 Results
-The results will be stored in `results.txt` and `results.json` on your client. You can use these SNIs as a Reality domain in your server. [How to add relaity domain on Hiddify Manager](https://github.com/hiddify/Hiddify-Manager/wiki/How-to-use-Reality-on-Hiddify)
+* در اینجا:
+  * `--jobs` تعداد اسکن همزمان را تعیین می‌کند.
+  * `--sni path_to_the_list` مسیر مربوط به لیست SNI مورد نظر را مشخص می‌کند.
+
+## 📊 نتایج
+خروجی اسکنر در فایل‌های `results.txt` و `results.json`روی کلاینت شما ذخیره می‌گردد. شما می‌توانید از این SNIها برای ایجاد دامنه‌های ریالیتی در سرور خود استفاده نمایید.  [نحوه ثبت دامنه ریالیتی در هیدیفای‌منیجر])(https://github.com/hiddify/Hiddify-Manager/wiki/%D8%A2%D9%85%D9%88%D8%B2%D8%B4-%D8%A7%D8%B3%D8%AA%D9%81%D8%A7%D8%AF%D9%87-%D8%A7%D8%B2-Reality-%D8%AF%D8%B1-%D9%87%DB%8C%D8%AF%DB%8C%D9%81%D8%A7%DB%8C)
