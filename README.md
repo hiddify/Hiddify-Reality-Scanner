@@ -3,7 +3,14 @@
 
 This is a TLS scanner that finds the best Reality SNI for you based on a list of SNIs.
 
-## ⚙️ Prerequisites
+## ⚙️ Installation
+
+
+#### 🛠️ Automatic Installation
+If you want to install it automatically, you just need to use Pypi and run the following command:
+```bash
+pip install -U hiddify_reality_scanner
+```
 
 #### 🛠️ Manual Installation
 
@@ -35,14 +42,9 @@ xray run -c server_config.json
 vless://hiddify@SERVER_IP:11443/?fp=chrome&security=reality&pbk=Z84J2IelR9ch3k8VtlVhhs5ycBUlXA7wHBWcBrjqnAw&sid=6ba85179e30d4fc2&sni=www.yahoo.com&type=tcp&flow=xtls-rprx-vision&encryption=none#Hiddify
 ```
 
-#### 🛠️ Install it from PyPI
-If you want to install it automatically, you just need to run the following command:
-```bash
-pip install -U hiddify_reality_scanner
-```
 <br>
 
-## 🚀 Usage
+## 🚀 Basic Usage
 In order to run the scanner use one of the following commands:
 ```bash
 python -m hiddify_reality_scanner vless_link
