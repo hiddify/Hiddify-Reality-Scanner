@@ -182,6 +182,14 @@ def main():
     domains = [d.strip() for d in domains]
     random.shuffle(domains)
 
+    if len(domains)>100:
+        print("===============================================================")
+        print("===============================================================")
+        print("===============================================================")
+        print("Attention! This script may takes time. You can press ctrl+c to stop scan at any time")
+        print("===============================================================")
+        print("===============================================================")
+        print("===============================================================")
     # Now you can use these values in your code
     print(json.dumps(data, indent=4))
 
