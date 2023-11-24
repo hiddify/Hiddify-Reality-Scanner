@@ -5,7 +5,7 @@ This is a TLS scanner that finds the best Reality SNI for you based on a list of
 
 ## ⚙️ Prerequisites
 
-#### Manual Installation
+#### 🛠️ Manual Installation
 
 * First you need to install our custom xray core in the server using the following command:
 ```
@@ -35,21 +35,21 @@ xray run -c server_config.json
 vless://hiddify@SERVER_IP:11443/?fp=chrome&security=reality&pbk=Z84J2IelR9ch3k8VtlVhhs5ycBUlXA7wHBWcBrjqnAw&sid=6ba85179e30d4fc2&sni=www.yahoo.com&type=tcp&flow=xtls-rprx-vision&encryption=none#Hiddify
 ```
 
-#### Install it from PyPI
+#### 🛠️ Install it from PyPI
 If you want to install it automatically, you just need to run the following command:
 ```bash
 pip install -U hiddify_reality_scanner
 ```
 <br>
 
-## Usage
+## 🚀 Usage
 In order to run the scanner use one of the following commands:
 ```bash
 python -m hiddify_reality_scanner vless_link
 #or
 hiddify_reality_scanner vless_link
 ```
-## Advanced Usage
+## 🚀 Advanced Usage
 * If you want to consider more items when scanning, use the following command:
 ```bash
 hiddify_reality_scanner --jobs 10 --sni yahoo.com,google.com vless_link
@@ -60,11 +60,11 @@ hiddify_reality_scanner --jobs 10 --sni yahoo.com,google.com vless_link
  
 * If you want to add a list of SNIs, use the following command
 ```bash
-hiddify_reality_scanner --jobs 10 --sni path_to_domain_file vless_link
+hiddify_reality_scanner --jobs 10 --sni path_to_the_list vless_link
 ```
 * Here:
   * `--jobs` defines the number of concurrent scans
-  * `--sni path_to_domain_file` desines the path for the list of SNIs
+  * `--sni path_to_the_list` desines the path for the list of SNIs
 
-## Results
+## 📊 Results
 The results will be stored in `results.txt` and `results.json`
