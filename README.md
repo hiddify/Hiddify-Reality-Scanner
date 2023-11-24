@@ -16,7 +16,7 @@
 
 # Hiddify Reality Scanner
 
-This is a TLS scanner that finds the best Reality SNI for you based on a list of SNIs. For more information you can read through our [Contribution Guidelines](CONTRIBUTING.md) for development.
+This is a TLS scanner that finds the best Reality SNI for you based on a list of SNIs. For more information about development you can read through our [Contribution Guidelines](CONTRIBUTING.md) .
 
 ## ⚙️ Installation
 The installation of this scanner has 2 parts. The first part is a server-side application and the 2nd part is client-side.
