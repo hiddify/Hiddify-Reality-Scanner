@@ -24,7 +24,7 @@ The installation of this scanner has 2 parts. The first part is a server-side ap
 
 #### 🛠️ Server-side Installation
 
-* First you need to install our custom xray core in the server using the following command:
+* First you need to install our custom Xray core on the server using the following command:
 ```
 #remove old xray
 bash -c "$(curl -L https://github.com/XTLS/Xray-install/raw/main/install-release.sh)" @ remove
