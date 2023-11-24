@@ -1,3 +1,18 @@
+<base target="_blank">
+
+<div dir="ltr">
+
+
+
+[**![Lang_farsi](https://user-images.githubusercontent.com/125398461/234186932-52f1fa82-52c6-417f-8b37-08fe9250a55f.png) &nbsp;فارسی**](README_fa.md)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</div>
+<br>
+<div align=center markdown="1">
+ 
+
+![Hiddify Logo](https://user-images.githubusercontent.com/125398461/227777845-a4d0f86b-faa2-4f2b-a410-4aa5f68bfe19.png)
+
+</div>
 
 # Hiddify Reality Scanner
 
@@ -70,4 +85,4 @@ hiddify_reality_scanner --jobs 10 --sni path_to_the_list vless_link
   * `--sni path_to_the_list` desines the path for the list of SNIs
 
 ## 📊 Results
-The results will be stored in `results.txt` and `results.json`
+The results will be stored in `results.txt` and `results.json` on your client. You can use these SNIs as a Reality domain in your server. [How to add relaity domain on Hiddify Manager](https://github.com/hiddify/Hiddify-Manager/wiki/How-to-use-Reality-on-Hiddify)
