@@ -16,7 +16,7 @@
 
 # Hiddify Reality Scanner
 
-This is a TLS scanner that finds the best Reality SNI for you based on a list of SNIs.
+This is a TLS scanner that finds the best Reality SNI for you based on a list of SNIs. For more information you can read through our [Contribution Guidelines](CONTRIBUTING.md) for development.
 
 ## ⚙️ Installation
 The installation of this scanner has 2 parts. The first part is a server-side application and the 2nd part is client-side.
@@ -73,16 +73,16 @@ hiddify_reality_scanner vless_link
 hiddify_reality_scanner --jobs 10 --sni yahoo.com,google.com vless_link
 ```
 * Here:
-  * `--jobs` defines the number of concurrent scans
-  * `--sni` defines the desired SNIs for scanning
+  * `--jobs` defines the number of concurrent scans.
+  * `--sni` defines the desired SNIs for scanning.
  
 * If you want to add a list of SNIs, use the following command
 ```bash
 hiddify_reality_scanner --jobs 10 --sni path_to_the_list vless_link
 ```
 * Here:
-  * `--jobs` defines the number of concurrent scans
-  * `--sni path_to_the_list` desines the path for the list of SNIs
+  * `--jobs` defines the number of concurrent scans.
+  * `--sni path_to_the_list` desines the path for the list of SNIs.
 
 ## 📊 Results
 The results will be stored in `results.txt` and `results.json` on your client. You can use these SNIs as a Reality domain in your server. [How to add relaity domain on Hiddify Manager](https://github.com/hiddify/Hiddify-Manager/wiki/How-to-use-Reality-on-Hiddify)
