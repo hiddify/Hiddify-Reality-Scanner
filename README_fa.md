@@ -1,6 +1,6 @@
 <base target="_blank">
 
-<div dir="ltr">
+<div dir="ltr" align="right">
 
 
 
@@ -14,7 +14,7 @@
 
 </div>
 
-<div dir="ltr">
+<div dir="ltr" align="right">
 
 # اسکنر ریالیتی هیدیفای
 این یک اسکنر TLS است که برای شما بهترین SNIهای ریالیتی را بر اساس لیستی از SNIها پیدا می‌کند.
