@@ -88,13 +88,15 @@ hiddify_reality_scanner --jobs 10 --sni path_to_the_list vless_link
   * `--jobs` defines the number of concurrent scans.
   * `--sni path_to_the_list` desines the path for the list of SNIs.
 
-> Note: during scan, if you want to intrupt it, you can simply use 'ctrl+c' .
+> Note: during the scan, if you want to intrupt it, you can simply use `ctrl+c` .
 
 ## 📊 Results
-The results will be stored in `results.txt` and `results.json` on your client. You can use these SNIs as a Reality domain in your server. [How to add relaity domain on Hiddify Manager](https://github.com/hiddify/Hiddify-Manager/wiki/How-to-use-Reality-on-Hiddify)
+The results will be stored in `results-list.txt` and `results-list.json` on your client. You can use these SNIs as a Reality domain in your server. [How to add relaity domain on Hiddify Manager](https://github.com/hiddify/Hiddify-Manager/wiki/How-to-use-Reality-on-Hiddify)
 
 
 
 > Note: If you install server-side scanner on your Hiddify Manager; You need to run the following command after finishing the scan:
 
+```
 systemctl start hiddify-xray
+```
