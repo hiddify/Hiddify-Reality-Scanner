@@ -43,7 +43,7 @@ bash -c "$(curl -L https://github.com/hiddify/Xray-core-custom/raw/main/install-
 
 <div dir="rtl" align="right">
  
-* حالا باید یک فایل کانفیگ بت SNI خالی را روی پنل خود ایجاد کنید یا از کانفیگ زیر استفاده نمایید:
+* حالا باید یک فایل کانفیگ با SNI خالی را روی پنل خود ایجاد کنید یا از کانفیگ زیر استفاده نمایید:
 </div>
 
 <div dir=ltr>
@@ -51,8 +51,12 @@ bash -c "$(curl -L https://github.com/hiddify/Xray-core-custom/raw/main/install-
 ```
 curl -o server_config.json https://raw.githubusercontent.com/hiddify/Hiddify_Reality_Scanner/main/server_config.json
 
-SERVER_IP=$(curl ip.sb)
-echo "vless://hiddify@$SERVER_IP:11443/?fp=chrome&security=reality&pbk=Z84J2IelR9ch3k8VtlVhhs5ycBUlXA7wHBWcBrjqnAw&sid=6ba85179e30d4fc2&sni=www.google.com&type=tcp&flow=xtls-rprx-vision&encryption=none#Hiddify"
+echo "---------------IPV6---------"
+echo "vless://hiddify@$(curl -6 ip.sb):11443/?fp=chrome&security=reality&pbk=Z84J2IelR9ch3k8VtlVhhs5ycBUlXA7wHBWcBrjqnAw&sid=6ba85179e30d4fc2&sni=www.google.com&type=tcp&flow=xtls-rprx-vision&encryption=none#Hiddify"
+
+echo "---------------IPV4---------"
+echo "vless://hiddify@$(curl -4 ip.sb):11443/?fp=chrome&security=reality&pbk=Z84J2IelR9ch3k8VtlVhhs5ycBUlXA7wHBWcBrjqnAw&sid=6ba85179e30d4fc2&sni=www.google.com&type=tcp&flow=xtls-rprx-vision&encryption=none#Hiddify"
+
 ```
 </div>
 
@@ -148,10 +152,20 @@ hiddify_reality_scanner --jobs 10 --sni path_to_the_list vless_link
 * در اینجا:
   - پارامتر `jobs--` تعداد اسکن همزمان را تعیین می‌کند.
   - پارامتر `sni path_to_the_list--` مسیر مربوط به لیست SNI مورد نظر را مشخص می‌کند.
+    > نکته: در حین اسکن، اگر می خواهید آن را قطع کنید، می‌توانید به سادگی از `ctrl+c` استفاده کنید.
 
 ## 📊 نتایج
 خروجی اسکنر در فایل‌های `results.txt` و `results.json` روی کلاینت شما ذخیره می‌گردد. شما می‌توانید از این SNIها برای ایجاد دامنه‌های ریالیتی در سرور خود استفاده نمایید. [نحوه ثبت دامنه ریالیتی در هیدیفای‌منیجر](https://github.com/hiddify/Hiddify-Manager/wiki/%D8%A2%D9%85%D9%88%D8%B2%D8%B4-%D8%A7%D8%B3%D8%AA%D9%81%D8%A7%D8%AF%D9%87-%D8%A7%D8%B2-Reality-%D8%AF%D8%B1-%D9%87%DB%8C%D8%AF%DB%8C%D9%81%D8%A7%DB%8C)
 
+> نکته: اگر اسکنر سمت سرور را روی Hiddify Manager خود نصب کرده‌اید، پس از اتمام اسکن باید دستور زیر را اجرا کنید.
+
+</div>
+
+<div dir=ltr>
+ 
+```
+systemctl start hiddify-xray
+```
 
 </div>
 
