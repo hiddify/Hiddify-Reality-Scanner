@@ -95,7 +95,7 @@ The results will be stored in `results-list.txt` and `results-list.json` on your
 
 
 
-> Note: If you install server-side scanner on your Hiddify Manager; You need to run the following command after finishing the scan:
+> Note: If you have installed server-side scanner on your Hiddify Manager; You need to run the following command after finishing the scan:
 
 ```
 systemctl start hiddify-xray
