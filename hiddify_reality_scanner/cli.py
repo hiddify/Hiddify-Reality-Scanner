@@ -1,4 +1,5 @@
 import random
+import sys
 
 import traceback
 import urllib
@@ -129,6 +130,12 @@ def parse_reality(url):
     }
     if res["type"] == "http":
         res["type"] = "h2"
+
+    if not res['public_key'] or not res["short_id"]:
+        print('=============================================================================')
+        print('Incorrect vless link! make sure that your config is between double quotation(")')
+        print('=============================================================================')
+        sys.exit(1)
     return res
 
 
