@@ -181,7 +181,7 @@ def main():
                 domains = file.readlines()
     domains = [d.strip() for d in domains]
     random.shuffle(domains)
-
+    print(json.dumps(data, indent=4))
     if len(domains)>100:
         print("===============================================================")
         print("===============================================================")
@@ -191,7 +191,7 @@ def main():
         print("===============================================================")
         print("===============================================================")
     # Now you can use these values in your code
-    print(json.dumps(data, indent=4))
+    
 
     bin = bin_path()
     if not os.path.exists(f"bin/{bin}"):
@@ -211,8 +211,11 @@ def main():
         if not item or not item["ping"]:
             return -1000000000
         return -item["ping"]
-
+    results=[r for r in results if r['ping']]
     results = sorted(results, key=custom_sort_key2)
+    if not len(results):
+        print("Nothing found! :(")
+
     print("\n".join([f"{d['sni']}\t\t:{d['ping']}" for d in results]))
     results = sorted(
         results,
@@ -248,11 +251,14 @@ def run_in_parallel(data, domains, num_cpu_cores=4):
     return results
 
 def test_domain(data, domain):
-    loop = asyncio.new_event_loop()
-    asyncio.set_event_loop(loop)
-    result = loop.run_until_complete(test_domain_async(data, domain))
-    return result
-
+    try:
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        result = loop.run_until_complete(test_domain_async(data, domain))
+        return result
+    except:
+        print('breaking...')
+        return {"ping": None, "sni": domain}
 
 async def test_domain_async(data, d):
     try:
