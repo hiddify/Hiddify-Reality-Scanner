@@ -67,14 +67,14 @@ pip install -U hiddify_reality_scanner
 ## 🚀 Basic Usage
 In order to run the scanner, use one of the following commands on your client:
 ```bash
-python -m hiddify_reality_scanner vless_link
+python -m hiddify_reality_scanner "vless_link"
 #or
-hiddify_reality_scanner vless_link
+hiddify_reality_scanner "vless_link"
 ```
 ## 🚀 Advanced Usage
 * If you want to consider more items when scanning, use the following command on your client:
 ```bash
-hiddify_reality_scanner --jobs 10 --sni yahoo.com,google.com vless_link
+hiddify_reality_scanner --jobs 10 --sni yahoo.com,google.com "vless_link"
 ```
 * Here:
   * `--jobs` defines the number of concurrent scans.

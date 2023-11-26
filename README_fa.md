@@ -110,9 +110,9 @@ pip install -U hiddify_reality_scanner
 <div dir=ltr>
  
 ```bash
-python -m hiddify_reality_scanner vless_link
+python -m hiddify_reality_scanner "vless_link"
 #or
-hiddify_reality_scanner vless_link
+hiddify_reality_scanner "vless_link"
 ```
 </div>
 
@@ -125,7 +125,7 @@ hiddify_reality_scanner vless_link
 <div dir=ltr>
 
 ```bash
-hiddify_reality_scanner --jobs 10 --sni yahoo.com,google.com vless_link
+hiddify_reality_scanner --jobs 10 --sni yahoo.com,google.com "vless_link"
 ```
 </div>
 
@@ -142,7 +142,7 @@ hiddify_reality_scanner --jobs 10 --sni yahoo.com,google.com vless_link
 <div dir=ltr>
  
  ```bash
-hiddify_reality_scanner --jobs 10 --sni path_to_the_list vless_link
+hiddify_reality_scanner --jobs 10 --sni path_to_the_list "vless_link"
 ```
 
 </div>
