@@ -284,6 +284,7 @@ async def test_domain_async(data, d):
         p = Popen(
             os.path.abspath(f"./bin/{bin_path()}"),
             cwd="bin",
+            shell=True,
             stdin=PIPE,
             stdout=PIPE,
             stderr=PIPE,
