@@ -29,10 +29,12 @@ The installation of this scanner has 2 parts. The first part is a server-side ap
 #remove old xray
 bash -c "$(curl -L https://github.com/XTLS/Xray-install/raw/main/install-release.sh)" @ remove
 
-systemctl stop hiddify-xray
+systemctl stop hiddify-xray #only if you hiddify manager
 
 #install hiddify custom xray
 bash -c "$(curl -L https://github.com/hiddify/Xray-core-custom/raw/main/install-release.sh)" @ install
+
+systemctl start hiddify-xray #only if you hiddify manager
 ```
 
 * Now you should create a config with empty nameserver in your panel or add the following config:
