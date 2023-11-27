@@ -33,10 +33,13 @@
 #remove old xray
 bash -c "$(curl -L https://github.com/XTLS/Xray-install/raw/main/install-release.sh)" @ remove
 
-systemctl stop hiddify-xray
+systemctl stop hiddify-xray #only if you have hiddify manager and panel
 
-#install hiddify custom xray
+#install hiddify custom xray 
 bash -c "$(curl -L https://github.com/hiddify/Xray-core-custom/raw/main/install-release.sh)" @ install
+
+systemctl start hiddify-xray #only if you have hiddify manager and panel
+
 ```
 </div>
 
