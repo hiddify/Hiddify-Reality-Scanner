@@ -93,7 +93,7 @@ hiddify_reality_scanner --jobs 10 --sni path_to_the_list vless_link
 > Note: during the scan, if you want to intrupt it, you can simply use `ctrl+c` .
 
 ## 📊 Results
-The results will be stored in `results-list.txt` and `results-list.json` on your client. You can use these SNIs as a Reality domain in your server. [How to add relaity domain on Hiddify Manager](https://github.com/hiddify/Hiddify-Manager/wiki/How-to-use-Reality-on-Hiddify)
+The results will be stored in `results-list.txt` and `results-list.json` on your client. You can use these SNIs as a Reality domain in your server. [How to add reality domain on Hiddify Manager](https://github.com/hiddify/Hiddify-Manager/wiki/How-to-use-Reality-on-Hiddify)
 
 
 
