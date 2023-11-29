@@ -153,6 +153,13 @@ def main():
         type=int,
         help="Number of concurrent requests (default=4)",
     )
+    parser.add_argument(
+        "--limit",
+        required=False,
+        default=10,
+        type=int,
+        help="Number of working SNI (default=10)",
+    )
     # parser.add_argument("--server_address", required=False, help="Server address")
     # parser.add_argument("--server_port", required=False, type=int, help="Server port")
     # parser.add_argument("--uuid", required=False, help="UUID")
@@ -194,7 +201,7 @@ def main():
         print("===============================================================")
         print("===============================================================")
         print("===============================================================")
-        print("Attention! This script may takes time. You can press ctrl+c to stop scan at any time")
+        print("Attention! This script may take time. You can press ctrl+c to stop scan at any time")
         print("===============================================================")
         print("===============================================================")
         print("===============================================================")
@@ -207,7 +214,7 @@ def main():
 
     # asyncio.run(test_domain(data,domains[0]))
     # asyncio.run(test_domain_async(data,data['origsni']))
-    results = run_in_parallel(data, [data["origsni"], *domains], args.jobs)
+    results = run_in_parallel(data, [data["origsni"], *domains], args.jobs,args.limit)
     print("Finished=============== Sorting results ===============")
 
     def custom_sort_key1(item):
@@ -236,9 +243,9 @@ def main():
         json.dump(results, f)
 
 
-def run_in_parallel(data, domains, num_cpu_cores=4):
+def run_in_parallel(data, domains, num_cpu_cores,limit):
     # Create a multiprocessing pool with the desired number of processes
-    with multiprocessing.Pool(processes=num_cpu_cores) as pool:
+    with multiprocessing.Pool(processes=num_cpu_cores,maxtasksperchild=10) as pool:
         # Define the fixed parameter that remains the same for all tasks
         partial_task = partial(test_domain, data)
 
@@ -249,8 +256,14 @@ def run_in_parallel(data, domains, num_cpu_cores=4):
                 result_en = pool.imap(partial_task, domains)
 
                 for x in result_en:
-                    results.append(x)
+                    if x and x['ping']:
+                        results.append(x)
                     pbar.update()
+                    if len(results)>limit:
+                        pool.terminate()
+                        pool.join()    
+                        pool.close()  
+                        break  
         except KeyboardInterrupt:
             print("Intrupting... ")
             pool.terminate()
