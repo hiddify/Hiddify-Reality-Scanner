@@ -22,6 +22,7 @@ import requests
 import zipfile
 import shutil
 from jinja2 import Environment, PackageLoader, select_autoescape
+from tqdm import tqdm as Progressbar
 
 
 def get_download_url():
@@ -244,10 +245,12 @@ def run_in_parallel(data, domains, num_cpu_cores=4):
         results = []  # Initialize an empty list to store results
 
         try:
-            result_en = pool.imap(partial_task, domains)
+            with Progressbar(total=len(domains)) as pbar:
+                result_en = pool.imap(partial_task, domains)
 
-            for x in result_en:
-                results.append(x)
+                for x in result_en:
+                    results.append(x)
+                    pbar.update()
         except KeyboardInterrupt:
             print("Intrupting... ")
             pool.terminate()
@@ -296,12 +299,14 @@ async def test_domain_async(data, d):
         await asyncio.sleep(1)
 
         ping_time = await ping("http://cp.cloudflare.com/", port, d)
-        print(f"{d}\t\t:{ping_time}")
+
+        if ping_time is not None:
+            print(f"{d}\t\t:{ping_time}")
 
         p.kill()
         return {"ping": ping_time, "sni": d}
     except Exception as e:
-        print(f"An error occurred for {d}: {str(e)}")
+        # print(f"An error occurred for {d}: {str(e)}")
 
         # Print the stack trace
         traceback.print_exc()

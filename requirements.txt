@@ -8,3 +8,4 @@ httpx-socks[asyncio]
 
 requests
 jinja2
+tqdm
