@@ -67,7 +67,7 @@ pip install -U hiddify_reality_scanner
 <br>
 
 ## 🚀 Basic Usage
-In order to run the scanner, use one of the following commands on your client:
+In order to run the scanner you need to [insall python](https://www.python.org/downloads/) first, then use one of the following commands on your client:
 ```bash
 python -m hiddify_reality_scanner "vless_link"
 #or
