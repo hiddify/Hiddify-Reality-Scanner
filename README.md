@@ -73,6 +73,8 @@ python -m hiddify_reality_scanner "vless_link"
 #or
 hiddify_reality_scanner "vless_link"
 ```
+> Be careful that instead of `vless_link' you have to replace it with your Reality config.
+
 ## 🚀 Advanced Usage
 * If you want to consider more items when scanning, use the following command on your client:
 ```bash
