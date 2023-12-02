@@ -30,15 +30,18 @@
 <div dir=ltr>
  
 ```
-#remove old xray
-bash -c "$(curl -L https://github.com/XTLS/Xray-install/raw/main/install-release.sh)" @ remove
+# نصب ایکس‌ری قدیمی
+bash -c "$(curl -L https://github.com/XTLS/Xray-install/raw/main/install-release.sh)" @ remove 
 
-systemctl stop hiddify-xray #only if you have hiddify manager and panel
+#تنها اگر هیدیفای‌منیجر دارید
+systemctl stop hiddify-xray 
 
-#install hiddify custom xray 
+## نصب ایکس‌ری کاستوم شده هیدیفای
+ 
 bash -c "$(curl -L https://github.com/hiddify/Xray-core-custom/raw/main/install-release.sh)" @ install
 
-systemctl start hiddify-xray #only if you have hiddify manager and panel
+# نصب ایکس‌ری قدیمی
+systemctl start hiddify-xray
 
 ```
 </div>
