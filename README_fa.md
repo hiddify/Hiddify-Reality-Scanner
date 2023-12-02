@@ -133,7 +133,7 @@ hiddify_reality_scanner "vless_link"
 <div dir=ltr>
 
 ```bash
-hiddify_reality_scanner --jobs 10 --sni yahoo.com,google.com "vless_link"
+hiddify_reality_scanner --jobs 10 --limit 100 --sni yahoo.com,google.com "vless_link"
 ```
 </div>
 
@@ -151,7 +151,7 @@ hiddify_reality_scanner --jobs 10 --sni yahoo.com,google.com "vless_link"
 <div dir=ltr>
  
  ```bash
-hiddify_reality_scanner --jobs 10 --sni path_to_the_list "vless_link"
+hiddify_reality_scanner --jobs 10 --limit 100 --sni path_to_the_list "vless_link"
 ```
 
 </div>
@@ -160,7 +160,7 @@ hiddify_reality_scanner --jobs 10 --sni path_to_the_list "vless_link"
  
 - در اینجا:
   - پارامتر ` jobs 10--` تعداد اسکن همزمان را تعیین می‌کند. اگر از این پارامتر استفاده نکنید، مقدار دیفالت اسکن همزمان ۱۰ می‌باشد.
- - پارامتر `sni path_to_the_list--` مسیر مربوط به لیست SNI مورد نظر را مشخص می‌کند.
+  - پارامتر `sni path_to_the_list--` مسیر مربوط به لیست SNI مورد نظر را مشخص می‌کند.
   - پارامتر `limit 100--` تعداد دامنه‌هایی که کار می‌کند را در لیست نتایج خروجی به ۱۰۰ دامنه محدود می‌کند.اگر از این پارامتر استفاده نکنید، مقدار دیفالت لیست خروجی ۱۰ می‌باشد.
  
 > نکته: در حین اسکن، اگر می خواهید آن را قطع کنید، می‌توانید به سادگی از `ctrl+c` استفاده کنید.
