@@ -40,7 +40,7 @@ systemctl stop hiddify-xray
  
 bash -c "$(curl -L https://github.com/hiddify/Xray-core-custom/raw/main/install-release.sh)" @ install
 
-# نصب ایکس‌ری قدیمی
+#تنها اگر هیدیفای‌منیجر دارید
 systemctl start hiddify-xray
 
 ```
