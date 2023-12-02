@@ -140,7 +140,7 @@ hiddify_reality_scanner --jobs 10 --sni yahoo.com,google.com "vless_link"
 <div dir="rtl" align="right">
 
 
-* در اینجا:
+- در اینجا:
   - پارامتر `jobs--` تعداد اسکن همزمان را تعیین می‌کند.
   - پارامتر `sni--` نیز SNIهای مورد نظر را برای اسکن مشخص می‌کند.
   - پارامتر `limit--` تعداد دامنه هایی که کار می‌کند را محدود می‌کند.
@@ -158,7 +158,7 @@ hiddify_reality_scanner --jobs 10 --sni path_to_the_list "vless_link"
 
 <div dir="rtl" align="right">
  
-* در اینجا:
+- در اینجا:
   - پارامتر `jobs--` تعداد اسکن همزمان را تعیین می‌کند.
   - پارامتر `sni path_to_the_list--` مسیر مربوط به لیست SNI مورد نظر را مشخص می‌کند.
 > نکته: در حین اسکن، اگر می خواهید آن را قطع کنید، می‌توانید به سادگی از `ctrl+c` استفاده کنید.
