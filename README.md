@@ -82,18 +82,18 @@ hiddify_reality_scanner "vless_link"
 hiddify_reality_scanner --jobs 10 --limit 100 --sni yahoo.com,google.com "vless_link"
 ```
 * Here:
-  * `--jobs 10` defines the number of concurrent scans. (default 10)
+  * `--jobs 10` defines the number of concurrent scans. The(default 10 if you dont use this parameter in the command.
   * `--sni` defines the desired SNIs for scanning.
-  * `--limit 100` defines the 100 limit for the working SNIs in the result list.
+  * `--limit 100` defines the 100 limit for the working SNIs in the result list. The default 10 if you dont use this parameter in the command
  
 * If you want to add a list of SNIs, use the following command
 ```bash
 hiddify_reality_scanner --jobs 10 --limit 100 --sni path_to_the_list vless_link
 ```
 * Here:
-  * `--jobs 10` defines the number of concurrent scans. (default 10)
+  * `--jobs 10` defines the number of concurrent scans. The(default 10 if you dont use this parameter in the command.
   * `--sni path_to_the_list` desines the path for the list of SNIs.
-  * `--limit 100` defines the 100 limit for the working SNIs in the result list.
+  * `--limit 100` defines the 100 limit for the working SNIs in the result list. The(default 10 if you dont use this parameter in the command.
 
 > Note: during the scan, if you want to intrupt it, you can simply use `ctrl+c` .
 
