@@ -33,14 +33,14 @@
 # نصب ایکس‌ری قدیمی
 bash -c "$(curl -L https://github.com/XTLS/Xray-install/raw/main/install-release.sh)" @ remove 
 
-#تنها اگر هیدیفای‌منیجر دارید
+# تنها اگر هیدیفای‌منیجر دارید
 systemctl stop hiddify-xray 
 
-## نصب ایکس‌ری کاستوم شده هیدیفای
+# نصب ایکس‌ری کاستوم شده هیدیفای
  
 bash -c "$(curl -L https://github.com/hiddify/Xray-core-custom/raw/main/install-release.sh)" @ install
 
-#تنها اگر هیدیفای‌منیجر دارید
+# تنها اگر هیدیفای‌منیجر دارید
 systemctl start hiddify-xray
 
 ```
