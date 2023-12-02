@@ -79,21 +79,21 @@ hiddify_reality_scanner "vless_link"
 ## 🚀 Advanced Usage
 * If you want to consider more items when scanning, use the following command on your client:
 ```bash
-hiddify_reality_scanner --jobs 10 --sni yahoo.com,google.com "vless_link"
+hiddify_reality_scanner --jobs 10 --limit 100 --sni yahoo.com,google.com "vless_link"
 ```
 * Here:
-  * `--jobs` defines the number of concurrent scans.
+  * `--jobs 10` defines the number of concurrent scans. (default 10)
   * `--sni` defines the desired SNIs for scanning.
-  * `--limit` limit the number of working SNI.
+  * `--limit 100` defines the 100 limit for the working SNIs in the result list.
  
 * If you want to add a list of SNIs, use the following command
 ```bash
 hiddify_reality_scanner --jobs 10 --limit 100 --sni path_to_the_list vless_link
 ```
 * Here:
-  * `--jobs` defines the number of concurrent scans.
+  * `--jobs 10` defines the number of concurrent scans. (default 10)
   * `--sni path_to_the_list` desines the path for the list of SNIs.
-  * `--limit 100` desines the 100 limit for the working SNIs.
+  * `--limit 100` defines the 100 limit for the working SNIs in the result list.
 
 > Note: during the scan, if you want to intrupt it, you can simply use `ctrl+c` .
 
