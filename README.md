@@ -25,15 +25,17 @@ The installation of this scanner has 2 parts. The first part is a server-side ap
 
 * First you need to install our custom Xray core on the server using the following command:
 ```
-#remove old xray
+# remove old xray
 bash -c "$(curl -L https://github.com/XTLS/Xray-install/raw/main/install-release.sh)" @ remove
 
-systemctl stop hiddify-xray #only if you have hiddify manager and hiddify panel
+#only if you have hiddify manager and hiddify panel
+systemctl stop hiddify-xray
 
-#install hiddify custom xray
+# install hiddify custom xray
 bash -c "$(curl -L https://github.com/hiddify/Xray-core-custom/raw/main/install-release.sh)" @ install
 
-systemctl start hiddify-xray #only if you have hiddify manager and hiddify panel
+#only if you have hiddify manager and hiddify panel
+systemctl start hiddify-xray
 ```
 
 * Now you should create a config with empty nameserver in your panel or add the following config:
