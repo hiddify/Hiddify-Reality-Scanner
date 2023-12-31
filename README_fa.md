@@ -30,7 +30,7 @@
 <div dir=ltr>
  
 ```
-# نصب ایکس‌ری قدیمی
+# حذف ایکس‌ری قدیمی
 bash -c "$(curl -L https://github.com/XTLS/Xray-install/raw/main/install-release.sh)" @ remove 
 
 # تنها اگر هیدیفای‌منیجر دارید
