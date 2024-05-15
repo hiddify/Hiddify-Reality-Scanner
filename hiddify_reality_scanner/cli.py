@@ -1,4 +1,5 @@
 import random
+import subprocess
 import sys
 
 import traceback
@@ -140,6 +141,14 @@ def parse_reality(url):
     return res
 
 
+def grant_execution_access(xray_bin):
+    try:
+        # Change permissions to allow execution
+        subprocess.run(['chmod', '+x', xray_bin])
+    except Exception as e:
+        raise Exception(f"Couldn't change the permission of xray binary file in path {bin}. Do it manually.")
+
+
 def main():
     # Create an ArgumentParser object
     parser = argparse.ArgumentParser(description="Your CLI Description")
@@ -197,7 +206,7 @@ def main():
     domains = [d.strip() for d in domains]
     random.shuffle(domains)
     print(json.dumps(data, indent=4))
-    if len(domains)>100:
+    if len(domains) > 100:
         print("===============================================================")
         print("===============================================================")
         print("===============================================================")
@@ -206,15 +215,17 @@ def main():
         print("===============================================================")
         print("===============================================================")
     # Now you can use these values in your code
-    
 
-    bin = bin_path()
-    if not os.path.exists(f"bin/{bin}"):
+    xray_bin = "bin/" + bin_path()
+    if not os.path.exists(xray_bin):
         download_and_unzip()
+
+    if not os.access(xray_bin, os.X_OK):
+        grant_execution_access(xray_bin)
 
     # asyncio.run(test_domain(data,domains[0]))
     # asyncio.run(test_domain_async(data,data['origsni']))
-    results = run_in_parallel(data, [data["origsni"], *domains], args.jobs,args.limit)
+    results = run_in_parallel(data, [data["origsni"], *domains], args.jobs, args.limit)
     print("Finished=============== Sorting results ===============")
 
     def custom_sort_key1(item):
@@ -226,7 +237,8 @@ def main():
         if not item or not item["ping"]:
             return -1000000000
         return -item["ping"]
-    results=[r for r in results if r['ping']]
+
+    results = [r for r in results if r['ping']]
     results = sorted(results, key=custom_sort_key2)
     if not len(results):
         print("Nothing found! :(")
@@ -243,9 +255,9 @@ def main():
         json.dump(results, f)
 
 
-def run_in_parallel(data, domains, num_cpu_cores,limit):
+def run_in_parallel(data, domains, num_cpu_cores, limit):
     # Create a multiprocessing pool with the desired number of processes
-    with multiprocessing.Pool(processes=num_cpu_cores,maxtasksperchild=10) as pool:
+    with multiprocessing.Pool(processes=num_cpu_cores, maxtasksperchild=10) as pool:
         # Define the fixed parameter that remains the same for all tasks
         partial_task = partial(test_domain, data)
 
@@ -259,11 +271,11 @@ def run_in_parallel(data, domains, num_cpu_cores,limit):
                     if x and x['ping']:
                         results.append(x)
                     pbar.update()
-                    if len(results)>limit:
+                    if len(results) > limit:
                         pool.terminate()
-                        pool.join()    
-                        pool.close()  
-                        break  
+                        pool.join()
+                        pool.close()
+                        break
         except KeyboardInterrupt:
             print("Intrupting... ")
             pool.terminate()
@@ -272,6 +284,7 @@ def run_in_parallel(data, domains, num_cpu_cores,limit):
             print(f"An exception occurred: {e}")
 
     return results
+
 
 def test_domain(data, domain):
     try:
@@ -282,6 +295,7 @@ def test_domain(data, domain):
     except:
         print('breaking...')
         return {"ping": None, "sni": domain}
+
 
 async def test_domain_async(data, d):
     try:
